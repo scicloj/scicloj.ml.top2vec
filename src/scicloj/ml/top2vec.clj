@@ -9,7 +9,9 @@
    [libpython-clj2.require :refer [require-python]]
    [libpython-clj2.python :as py :refer [py. py.. py.-]]))
 
-(require-python 'top2vec '[scipy.special :refer [softmax]])
+(require-python 'top2vec
+                '[scipy.special :refer [softmax]]
+                'wordcloud)
 ;; https://gist.githubusercontent.com/behrica/91b3f958fad80247069ade3b96646dcf/raw/4f58a93118702d34394e49fb8e1f3c4b4ed6c95f/PWI_top2vec.py
 (require-python 'PWI_top2vec)
 
@@ -68,6 +70,43 @@
 
 (mm/define-model! :top2vec train nil {:unsupervised? true
                                       :thaw-fn thaw-fn})
+
+
+
+
+
+
+
+(defn wc->svg [top2vec-model word-scores width height]
+  (let [wc (wordcloud/WordCloud :width width :height height)
+        wco
+        (py/py. wc generate_from_frequencies
+                (zipmap
+                 (:topic-words word-scores)
+                 (:softmax word-scores)))]
+    (py/py. wco to_svg)))
+
+
+
+
+(defn get-all-word-scores [top2vec-model]
+
+  (let [word-scores
+        (map #(hash-map :topic-words %1 :topic-word-scores %2)
+             (py/->jvm
+              (py/get-attr top2vec-model "topic_words"))
+             (py/->jvm
+              (py/get-attr top2vec-model "topic_word_scores")))]
+
+
+    (map
+     #(assoc % :softmax
+             (->  (:topic-word-scores %)
+                  (py/->python)
+                  (softmax)
+                  (py/->jvm)))
+     word-scores)))
+
 
 (comment
   (require '[tablecloth.api :as tc])

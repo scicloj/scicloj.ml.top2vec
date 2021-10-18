@@ -3,10 +3,10 @@
   (:require [clojure.tools.build.api :as b] ; for b/git-count-revs
             [org.corfield.build :as bb]))
 
-(def lib 'net.clojars.scicloj/ml.top2vec)
+(def lib 'scicloj/scicloj.ml.top2vec)
 (def version "0.1.0-SNAPSHOT")
 #_ ; alternatively, use MAJOR.MINOR.COMMITS:
-(def version (format "1.0.%s" (b/git-count-revs nil)))
+;(def version (format "1.0.%s" (b/git-count-revs nil)))
 
 (defn test "Run the tests." [opts]
   (bb/run-tests opts))
@@ -14,7 +14,7 @@
 (defn ci "Run the CI pipeline of tests (and build the JAR)." [opts]
   (-> opts
       (assoc :lib lib :version version)
-      (bb/run-tests)
+      ;; (bb/run-tests)
       (bb/clean)
       (bb/jar)))
 
