@@ -24,5 +24,5 @@
                                           :model-type :top2vec
                                           :min_count 1
                                           :documents-column :text})]
-
-    (println train-result-learn)))
+    (is (= [:model-data :options :id :feature-columns :target-columns])
+        (keys train-result-learn))))

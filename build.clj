@@ -4,9 +4,8 @@
             [org.corfield.build :as bb]))
 
 (def lib 'scicloj/scicloj.ml.top2vec)
-(def version "0.1.0-SNAPSHOT")
-#_ ; alternatively, use MAJOR.MINOR.COMMITS:
-;(def version (format "1.0.%s" (b/git-count-revs nil)))
+; alternatively, use MAJOR.MINOR.COMMITS:
+(def version (format "1.0.%s" (b/git-count-revs nil)))
 
 (defn test "Run the tests." [opts]
   (bb/run-tests opts))
@@ -18,6 +17,11 @@
       (bb/clean)
       (bb/jar)))
 
+(defn ci-no-test "Run the CI pipeline of tests (and build the JAR)." [opts]
+  (-> opts
+      (assoc :lib lib :version version)
+      (bb/clean)
+      (bb/jar)))
 (defn install "Install the JAR locally." [opts]
   (-> opts
       (assoc :lib lib :version version)
