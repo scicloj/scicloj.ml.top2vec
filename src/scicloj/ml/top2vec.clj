@@ -35,26 +35,18 @@
 
 (defn train
   [feature-ds label-ds options]
-  (def feature-ds feature-ds)
-  (def options options)
   (let [documents (get feature-ds (options :documents-column))
         top-2-vec-opts (dissoc options :documents-column :model-type :pwi-num-topics)
-        _ (def top-2-vec-opts top-2-vec-opts)
         model (do-train documents top-2-vec-opts)
-        _ (def model model)
         temp-file (.getPath (java.io.File/createTempFile "top2vec" ".bin"))
         _ (py. model save temp-file)
         num-topics (py/py. model get_num_topics)
         _ (assert (> num-topics 1) "The top2vec model needs to have more then 1 topic in order to cacluate the PWI")
-        pwi (PWI_top2vec/PWI model (py/py.- model documents) (or  (:pwi-num-topics options)
-                                                                  (dec num-topics)))]
-
-
+        pwi (PWI_top2vec/PWI model (py/py.- model documents) (or  (:pwi-num-topics options) (dec num-topics)))]
     {
      :n-topics num-topics
      :pwi pwi
      :model-file temp-file
-     ;; :thawed-model model
      :model-as-bytes (file->bytes temp-file)}))
 
 
@@ -66,14 +58,6 @@
 (defn thaw-fn [model-data]
   (let [model-file (bytes->file (:model-as-bytes model-data))]
     (py/py. top2vec/Top2Vec load model-file)))
-
-
-(mm/define-model! :top2vec train nil {:unsupervised? true
-                                      :thaw-fn thaw-fn})
-
-
-
-
 
 
 
@@ -106,6 +90,10 @@
                   (softmax)
                   (py/->jvm)))
      word-scores)))
+
+
+(mm/define-model! :top2vec train nil {:unsupervised? true
+                                      :thaw-fn thaw-fn})
 
 
 (comment
