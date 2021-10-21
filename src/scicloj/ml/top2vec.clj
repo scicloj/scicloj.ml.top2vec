@@ -42,7 +42,7 @@
         _ (assert (> num-topics 1) "The top2vec model needs to have more then 1 topic in order to cacluate the PWI")
         pwi (PWI_top2vec/PWI model (py/py.- model documents) (or  (:pwi-num-topics options) (dec num-topics)))
 
-        tmp-file (.getPath (java.io.File/createTempFile "top2vec" ".bin"))
+        temp-file (.getPath (java.io.File/createTempFile "top2vec" ".bin"))
         _ (py. model save temp-file)]
 
     {
