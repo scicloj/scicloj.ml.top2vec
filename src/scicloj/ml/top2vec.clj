@@ -33,6 +33,11 @@
 (defn do-train [s opts]
   (apply top2vec/Top2Vec (py/->py-list s) (apply concat opts)))
 
+(defn pwi [model num-topics-or-nil]
+  (let [num-topics (py/py. model get_num_topics)]
+     (assert (> num-topics 1) "The top2vec model needs to have more then 1 topic in order to cacluate the PWI")
+     (PWI_top2vec/PWI model (py/py.- model documents) (or num-topics-or-nil (dec num-topics)))))
+
 (defn train
   [feature-ds label-ds options]
   (let [documents (get feature-ds (options :documents-column))
@@ -51,10 +56,7 @@
      :model-file temp-file
      :model-as-bytes (file->bytes temp-file)}))
 
-(defn pwi [model num-topics-or-nil]
-  (let [num-topics (py/py. model get_num_topics)]
-     (assert (> num-topics 1) "The top2vec model needs to have more then 1 topic in order to cacluate the PWI")
-     (PWI_top2vec/PWI model (py/py.- model documents) (or num-topics-or-nil (dec num-topics)))))
+
 
 
 
