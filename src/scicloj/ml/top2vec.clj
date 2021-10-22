@@ -31,7 +31,7 @@
 
 
 (defn do-train [s opts]
-  (println "opts: " + opts)
+  (println "opts: " opts)
   (apply top2vec/Top2Vec (py/->py-list s) (apply concat opts)))
 
 (defn pwi [model num-topics-or-nil]
