@@ -31,11 +31,9 @@
 
 
 (defn do-train [s opts]
-  (println "opts: " opts)
   (apply top2vec/Top2Vec (py/->py-list s) (apply concat opts)))
 
 (defn pwi [model num-topics-or-nil]
-  (println "model: " model)
   (let [num-topics (py/py. model get_num_topics)]
     (assert (> num-topics 1) "The top2vec model needs to have more then 1 topic in order to cacluate the PWI")
     (PWI_top2vec/PWI model (py/py.- model documents) (or num-topics-or-nil (dec num-topics)))))
@@ -60,7 +58,8 @@
 
 
 
-
+(defn save [model file]
+  (py. model save file))
 
 
 (defn thaw-fn [model-data]
