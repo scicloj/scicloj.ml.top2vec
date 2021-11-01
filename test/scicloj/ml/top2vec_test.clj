@@ -24,5 +24,6 @@
                                           :model-type :top2vec
                                           :min_count 1
                                           :documents-column :text})]
+    (clojure.pprint/pprint (update-in train-result-learn [:model-data] dissoc :model-as-bytes))
     (is (= [:model-data :options :id :feature-columns :target-columns])
         (keys train-result-learn))))

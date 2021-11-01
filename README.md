@@ -1,6 +1,6 @@
 # ml.top2vec
 
-FIXME: my new library.
+Adapter to run [top2vec](https://github.com/ddangelov/Top2Vec) model in scicloj.ml
 
 ## Usage
 
