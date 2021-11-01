@@ -2,7 +2,7 @@
 
 # scicloj.ml.top2vec
 
-Adapter to run Python [top2vec](https://github.com/ddangelov/Top2Vec) model in scicloj.ml
+Adapter to run Python [top2vec](https://github.com/ddangelov/Top2Vec) topic model in [scicloj.ml](https://github.com/scicloj/scicloj.ml)
 
 ## General setup
 
