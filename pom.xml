@@ -4,8 +4,8 @@
   <groupId>scicloj</groupId>
   <artifactId>scicloj.ml.top2vec</artifactId>
   <version>0.1.0-SNAPSHOT</version>
-  <name>scicloj/ml.top2vec</name>
-  <description>FIXME: my new library.</description>
+  <name>scicloj.ml.top2vec</name>
+  <description>Use top2vec model from Clojure</description>
   <url>https://github.com/scicloj/ml.top2vec</url>
   <licenses>
     <license>
@@ -15,11 +15,11 @@
   </licenses>
   <developers>
     <developer>
-      <name>Carsten</name>
+      <name>Carsten Behring</name>
     </developer>
   </developers>
   <scm>
-    <url>https://github.com/scicloj/ml.top2vec</url>
+    <url>https://github.com/scicloj/scicloj.ml.top2vec</url>
     <connection>scm:git:git://github.com/scicloj/ml.top2vec.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/scicloj/ml.top2vec.git</developerConnection>
     <tag>v0.1.0-SNAPSHOT</tag>
@@ -30,6 +30,21 @@
       <artifactId>clojure</artifactId>
       <version>1.10.3</version>
     </dependency>
+    <dependency>
+      <groupId>clj-python</groupId>
+      <artifactId>libpython-clj</artifactId>
+      <version>2.000</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cemerick</groupId>
+      <artifactId>pomegranate</artifactId>
+      <version>0.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.tcrawley</groupId>
+      <artifactId>dynapath</artifactId>
+      <version>0.2.5</version>
+    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -38,10 +53,6 @@
     <repository>
       <id>clojars</id>
       <url>https://repo.clojars.org/</url>
-    </repository>
-    <repository>
-      <id>sonatype</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </repository>
   </repositories>
   <distributionManagement>
