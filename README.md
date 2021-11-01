@@ -1,3 +1,5 @@
+[![Clojars Project](https://img.shields.io/clojars/v/org.scicloj/scicloj.ml.top2vec.svg)](https://clojars.org/org.scicloj/scicloj.ml.top2vec)
+
 # scicloj.ml.top2vec
 
 Adapter to run Python [top2vec](https://github.com/ddangelov/Top2Vec) model in scicloj.ml
