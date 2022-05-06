@@ -21,7 +21,7 @@ docker run -ti -v $HOME/.m2:/home/user/.m2 -v "$(pwd):/app" -p  12345:12345 -w /
 
 Then the followin code trains the top2vec model on some texts.
 
-```
+```clojure
 
   (require '[clojure.test :refer :all]
             '[scicloj.ml.top2vec :refer :all]
@@ -49,7 +49,7 @@ Then the followin code trains the top2vec model on some texts.
                                           :min_count 1
                                           :documents-column :text}))
  (clojure.pprint/pprint (update-in train-result-learn [:model-data] dissoc :model-as-bytes))
- (def top2vec-model-py (scicloj.metamorph.ml/thaw-model train-result-learn
+ (def top2vec-model-py (scicloj.metamorph.ml/thaw-model train-result-learn))
 ```
 The obtained `top2vec-model-py` is the python object of the trained model.
 It can be used from Clojure via `libpython-clj` calls of its API:
@@ -58,7 +58,7 @@ https://top2vec.readthedocs.io/en/latest/api.html
 For a few cases I provide wrappers for the python API.
 A wordcloud of a topic (the first  this case)  can be obtained as a SVG string by:
 
-```
+```clojure
 (wc->svg top2vec-model-py (first (get-all-word-scores top2vec-model-py)) 100 100)
 ```
 ![image](https://user-images.githubusercontent.com/127361/139656225-a32071f5-2866-4d93-847d-97ae5ca7d55e.png)
