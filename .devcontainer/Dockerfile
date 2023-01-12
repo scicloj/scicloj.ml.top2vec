@@ -72,11 +72,15 @@ ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+     && apt-get -y install --no-install-recommends python3-pip python3-venv
 
+RUN pip install pipx
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
-
 # Clean up package lists
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+USER vscode
+RUN pipx ensurepath
+RUN pipx install dvc
