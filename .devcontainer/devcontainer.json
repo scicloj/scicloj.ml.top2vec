@@ -8,12 +8,16 @@
 		}
 	},
 
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {}
+	},
+
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
-			"settings": { 
+			"settings": {
 			},
 			
 			// Add the IDs of extensions you want installed when the container is created.
@@ -25,12 +29,14 @@
 		}
 	},
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"appPort": [12345],
+	"postCreateCommand": {
+						  "top2vec and pwi" : "pip install top2vec==1.0.27 nltk==3.8.1 && curl https://gist.githubusercontent.com/behrica/91b3f958fad80247069ade3b96646dcf/raw/7d27ec07bfe7b6cef1598c530bff50882f84ba70/PWI_top2vec.py -o /home/vscode/.local/lib/python3.9/site-packages/PWI_top2vec.py",
+                       	  "tidyverse" : "sudo Rscript -e 'install.packages(\"tidyverse\",repos = \"https://cloud.r-project.org/\")'",
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+						  "clojure dot file:": "rm -rf ~/.clojure && git clone https://github.com/behrica/clojure-deps-edn.git $HOME/.clojure"
+						 },
 
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"postAttachCommand": "cd /workspaces/scicloj.ml.top2vec/ && clj -P",					 
 	"remoteUser": "vscode"
 }
