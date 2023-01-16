@@ -31,12 +31,10 @@
 
 	"appPort": [12345],
 	"postCreateCommand": {
-						  "top2vec and pwi" : "pip install top2vec==1.0.27 nltk==3.8.1 && curl https://gist.githubusercontent.com/behrica/91b3f958fad80247069ade3b96646dcf/raw/7d27ec07bfe7b6cef1598c530bff50882f84ba70/PWI_top2vec.py -o /home/vscode/.local/lib/python3.9/site-packages/PWI_top2vec.py",
-                       	  "tidyverse" : "sudo Rscript -e 'install.packages(\"tidyverse\",repos = \"https://cloud.r-project.org/\")'",
-
+						  "top2vec and pwi" : "bash -i -c 'pip install top2vec==1.0.27 nltk==3.8.1 && curl https://gist.githubusercontent.com/behrica/91b3f958fad80247069ade3b96646dcf/raw/7d27ec07bfe7b6cef1598c530bff50882f84ba70/PWI_top2vec.py -o /home/vscode/.local/lib/python3.9/site-packages/PWI_top2vec.py'",
 						  "clojure dot file:": "rm -rf ~/.clojure && git clone https://github.com/behrica/clojure-deps-edn.git $HOME/.clojure"
 						 },
 
-	"postAttachCommand": "cd /workspaces/scicloj.ml.top2vec/ && clj -P",					 
+	"postAttachCommand": "bash -i -c 'cd /workspaces/scicloj.ml.top2vec/ && clj -P'",
 	"remoteUser": "vscode"
 }

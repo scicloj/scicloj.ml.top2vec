@@ -73,9 +73,11 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-     && apt-get -y install  r-base
+     && apt-get -y install  r-base r-cran-devtools
 
 # Clean up package lists
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+RUN Rscript -e 'install.packages("tidyverse",repos = "https://cloud.r-project.org")'
 
 USER vscode
